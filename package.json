@@ -1,0 +1,12 @@
+{
+  "name": "notas-padlet",
+  "version": "1.0.0",
+  "description": "Aplicación web tipo padlet para gestionar notas con drag & drop y redimensionado.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
