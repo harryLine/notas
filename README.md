@@ -16,6 +16,7 @@ notas/
 │  ├─ app.js
 │  ├─ index.html
 │  └─ styles.css
+├─ app.js
 ├─ package.json
 ├─ server.js
 └─ README.md
@@ -44,9 +45,11 @@ Sube el contenido del proyecto a tu dominio/subdominio en Plesk (por ejemplo, `h
 1. En Plesk, entra en tu dominio.
 2. Abre **Node.js**.
 3. Configura:
-   - **Document Root**: carpeta raíz del proyecto (donde está `server.js`).
+   - **Document Root**: carpeta raíz del proyecto (donde está `app.js`).
    - **Application Mode**: `production`.
-   - **Application Startup File**: `server.js`.
+   - **Application Startup File**: `app.js` (recomendado en Passenger/Plesk).
+
+   > `server.js` se incluye para ejecución local/manual, pero en Plesk usa `app.js` para evitar errores de arranque con Passenger.
 
 ### 3) Instalar dependencias
 Desde la interfaz Node.js en Plesk:
@@ -59,7 +62,7 @@ npm install --production
 ```
 
 ### 4) Variables y puerto
-No necesitas fijar manualmente el puerto; Plesk inyecta `PORT` y `server.js` ya lo usa automáticamente.
+No necesitas fijar manualmente el puerto; Plesk inyecta `PORT` y `app.js` ya lo usa automáticamente.
 
 ### 5) Permisos de escritura para base de datos archivo
 Asegúrate de que la carpeta `data/` y el archivo `data/notes.json` tengan permisos de escritura para el usuario de la app Node.js.
@@ -82,3 +85,20 @@ En Plesk (pantalla de Node.js), pulsa **Restart App** tras cualquier cambio.
 - Añadir autenticación por usuario.
 - Auto-guardado con debounce para reducir escrituras.
 - Migrar de JSON a SQLite/PostgreSQL para mayor robustez.
+
+## Solución al error típico de Passenger en Plesk
+
+Si ves un error como:
+
+- `Web application could not be started by the Phusion Passenger application server`
+
+Revisa estos puntos:
+
+1. **Startup file correcto**: en Plesk debe ser `app.js`.
+2. **Versión de Node**: usa Node 18+ (ideal Node 20).
+3. **Instalación de dependencias**: en este proyecto no hay dependencias externas, por lo que no debería fallar por `npm install`.
+4. **Permisos**: `data/` y `data/notes.json` deben ser escribibles por el usuario de la app.
+5. **Reinicio y logs**:
+   - pulsa **Restart App** en Plesk,
+   - abre los logs de Passenger desde Plesk para ver la traza exacta asociada al Error ID.
+
