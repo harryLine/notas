@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notas tipo Padlet</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Mis Notas</h1>
+        <p>Panel minimalista con arrastrar, soltar y redimensionar.</p>
+      </div>
+      <button id="newNoteBtn" class="btn-primary">+ Nueva nota</button>
+    </header>
+
+    <main>
+      <section id="board" class="board" aria-label="Tablero de notas"></section>
+    </main>
+
+    <template id="noteTemplate">
+      <article class="note" draggable="false">
+        <div class="note-header">
+          <span class="drag-handle">⠿</span>
+          <button class="delete-btn" title="Eliminar nota" aria-label="Eliminar nota">✕</button>
+        </div>
+        <textarea class="note-text" placeholder="Escribe aquí..."></textarea>
+        <div class="resize-handle" title="Redimensionar"></div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
